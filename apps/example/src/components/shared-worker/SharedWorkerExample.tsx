@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import useSharedWorker from "./useSharedWorker";
-import AlarmComponent from "../Alarm";
+import AlarmComponent from "../alarm/Alarm";
 
 import { Alarm } from "../../types/alarm";
 import { MessageType } from "../../constants/constant";
