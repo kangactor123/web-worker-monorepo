@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { SocketData } from "../../types/socket-data";
 
-import Worker from "../../workers/shared-worker?worker";
+import Worker from "../../workers/socket-worker?worker";
 
 type Props = {
   initialData?: SocketData;
