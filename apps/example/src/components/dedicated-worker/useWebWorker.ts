@@ -1,20 +1,25 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-type Props<T> = {
-  url: string;
-  initialData?: T;
+import { SocketData } from "../../types/socket-data";
+
+import Worker from "../../workers/shared-worker?worker";
+
+type Props = {
+  initialData?: SocketData;
 };
 
-type Result<T> = {
-  message: T | null;
+type Result = {
+  message: SocketData | null;
   loading: boolean;
   sendMessage: (message?: string) => void;
 };
 
-function useWebWorker<T>({ url, initialData }: Props<T>): Result<T> {
+function useWebWorker({ initialData }: Props): Result {
   const worker = useRef<Worker | null>(null);
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<T | null>(initialData ?? null);
+  const [message, setMessage] = useState<SocketData | null>(
+    initialData ?? null
+  );
 
   const sendMessage = useCallback((message?: string) => {
     if (worker.current) {
@@ -24,7 +29,7 @@ function useWebWorker<T>({ url, initialData }: Props<T>): Result<T> {
   }, []);
 
   useEffect(() => {
-    worker.current = new Worker(new URL(url, import.meta.url));
+    worker.current = new Worker();
 
     worker.current.onmessage = (event: MessageEvent<string>) => {
       let messageData = null;
@@ -45,7 +50,7 @@ function useWebWorker<T>({ url, initialData }: Props<T>): Result<T> {
         worker.current.terminate();
       }
     };
-  }, [url]);
+  }, []);
 
   return {
     message,

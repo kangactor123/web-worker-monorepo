@@ -1,20 +1,24 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { SocketData } from "../../types/socket-data";
 
-type Props<T> = {
-  url: string;
-  initialData?: T;
+import SharedWorker from "../../workers/shared-worker?sharedworker";
+
+type Props = {
+  initialData?: SocketData;
 };
 
-type Result<T> = {
-  message: T | null;
+type Result = {
+  message: SocketData | null;
   loading: boolean;
   sendMessage: (message?: string) => void;
 };
 
-function useSharedWorker<T>({ url, initialData }: Props<T>): Result<T> {
+function useSharedWorker({ initialData }: Props): Result {
   const worker = useRef<SharedWorker | null>(null);
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<T | null>(initialData ?? null);
+  const [message, setMessage] = useState<SocketData | null>(
+    initialData ?? null
+  );
 
   const sendMessage = useCallback((message?: string) => {
     if (worker.current) {
@@ -24,7 +28,7 @@ function useSharedWorker<T>({ url, initialData }: Props<T>): Result<T> {
   }, []);
 
   useEffect(() => {
-    worker.current = new SharedWorker(new URL(url, import.meta.url));
+    worker.current = new SharedWorker();
 
     worker.current.port.onmessage = (event: MessageEvent<string>) => {
       let messageData = null;
@@ -49,7 +53,7 @@ function useSharedWorker<T>({ url, initialData }: Props<T>): Result<T> {
         worker.current.port.close();
       }
     };
-  }, [url]);
+  }, []);
 
   return {
     message,

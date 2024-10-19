@@ -1,22 +1,21 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import useSharedWorker from "../hooks/useSharedWorker";
+import useSharedWorker from "./useSharedWorker";
+import AlarmComponent from "../Alarm";
 
-import AlarmComponent from "./Alarm";
+import { Alarm } from "../../types/alarm";
+import { MessageType } from "../../constants/constant";
 
-import { Alarm } from "../types/alarm";
-import { SocketData } from "../types/socket-data";
-
-import { isEmpty } from "../utils/util";
-import { MessageType } from "../constants/constant";
+import { isEmpty } from "../../utils/util";
 
 import styles from "./worker.module.css";
 
-const sharedWorkerPath = "../workers/shared-worker.ts";
-
 const SharedWorkerExample = () => {
   const [alarmList, setAlarmList] = useState<Alarm[]>([]);
-  const { message, loading, sendMessage } = useSharedWorker<SocketData>({
-    url: sharedWorkerPath,
+  const { message, loading, sendMessage } = useSharedWorker({
+    initialData: {
+      type: MessageType.MESSAGE,
+      data: "Init",
+    },
   });
 
   const handleClick = useCallback(() => {
@@ -33,6 +32,7 @@ const SharedWorkerExample = () => {
     return serverMsg;
   }, [message]);
 
+  console.log(message);
   useEffect(() => {
     if (message?.type === MessageType.DATA) {
       const alarm = message.data as Alarm;

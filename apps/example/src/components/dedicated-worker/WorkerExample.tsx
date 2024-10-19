@@ -1,22 +1,20 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import useWebWorker from "../hooks/useWebWorker";
+import useWebWorker from "./useWebWorker";
+import AlarmComponent from "../Alarm";
 
-import AlarmComponent from "./Alarm";
-
-import { Alarm } from "../types/alarm";
-import { SocketData } from "../types/socket-data";
-
-import { isEmpty } from "../utils/util";
+import { Alarm } from "../../types/alarm";
+import { MessageType } from "../../constants/constant";
+import { isEmpty } from "../../utils/util";
 
 import styles from "./worker.module.css";
-import { MessageType } from "../constants/constant";
-
-const socketWorkerPath = "../workers/socket-worker.ts";
 
 const WorkerExample = () => {
   const [alarmList, setAlarmList] = useState<Alarm[]>([]);
-  const { message, loading, sendMessage } = useWebWorker<SocketData>({
-    url: socketWorkerPath,
+  const { message, loading, sendMessage } = useWebWorker({
+    initialData: {
+      type: MessageType.MESSAGE,
+      data: "Init",
+    },
   });
 
   const serverMessage: string | null = useMemo(() => {

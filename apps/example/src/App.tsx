@@ -1,6 +1,5 @@
-// import WebSocket from "./components/WebSocketExample";
-// import WorkerExample from "./components/WorkerExample";
-import SharedWorkerExample from "./components/SharedWorkerExample";
+// import WorkerExample from "./components/dedicated-worker/WorkerExample";
+import SharedWorkerExample from "./components/shared-worker/SharedWorkerExample";
 
 import "./app.css";
 
@@ -9,7 +8,6 @@ function App() {
     <div className="container">
       <SharedWorkerExample />
       {/* <WorkerExample /> */}
-      {/* <WebSocket /> */}
     </div>
   );
 }
