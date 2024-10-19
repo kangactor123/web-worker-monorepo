@@ -32,7 +32,6 @@ const SharedWorkerExample = () => {
     return serverMsg;
   }, [message]);
 
-  console.log(message);
   useEffect(() => {
     if (message?.type === MessageType.DATA) {
       const alarm = message.data as Alarm;

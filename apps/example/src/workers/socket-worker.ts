@@ -1,7 +1,5 @@
 const socket: WebSocket = new WebSocket("ws://localhost:8080");
 
-console.log(socket);
-
 self.onmessage = (event: MessageEvent<string>) => {
   const { data: message } = event;
 
