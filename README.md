@@ -2,15 +2,16 @@
 
 <p>Web Worker 예제를 구현한 모노레포 입니다.</p>
 
-## apps/example
+## 패키지 소개
+### apps/example
 
 <p>Web Worker 예제를 담고 있는 app 입니다.</p>
 
-## server
+### server
 
 <p>Web Worker with Socket을 구현하기 위한 Mock서버 입니다.</p>
 
-### Script
+## Script
 
 ```
 # 개발 서버를 실행합니다.
@@ -23,6 +24,6 @@ pnpm run build
 pnpm run build:live
 ```
 
-### Description
+## Description
 
 - 각 앱/서버의 README에 간단한 설명이 있습니다.
