@@ -9,28 +9,22 @@
 - Pnpm
 - React, TypeScript, Vite
 
-### Web Socket 서버 구동
+## WebSocket 서버 구동
 
 - 해당 예제들은 node.js 환경의 간단한 웹 소켓과 함께 통신합니다.
 - 웹 소켓 코드는 `server/server.js` 에서 확인 가능합니다.
 
-```
-cd server
-pnpm install
-pnpm run start
-```
+## Component
 
-### Component
-
-#### SharedWorkerExample.tsx
+### SharedWorkerExample.tsx
 
 - SharedWorker에 WebSocket을 얹어서 사용하는 예제입니다
 
-#### WebSocketExmaple.tsx
+### WebSocketExmaple.tsx
 
 - Web Socket을 테스트한 컴포넌트 예제 입니다.
 
-#### WorkerExample.tsx
+### WorkerExample.tsx
 
 - DedicatedWorker에 WebSocket을 얹어서 사용하는 예제입니다.
 
