@@ -1,4 +1,4 @@
-# @web-worker/Monorepo
+# @web-worker/monorepo
 
 <p>Web Worker 예제를 구현한 모노레포 입니다.</p>
 
