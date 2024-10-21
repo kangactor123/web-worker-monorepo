@@ -1,5 +1,18 @@
-const connections: WeakRef<MessagePort>[] = [];
+let connections: WeakRef<MessagePort>[] = [];
 const socket: WebSocket = new WebSocket("ws://localhost:8080");
+
+// connection check for memory leak
+const intervalId = setInterval(() => {
+  let tempArray = [...connections];
+  for (let i = 0; i < connections.length; i++) {
+    const port = connections[i];
+
+    if (!port.deref()) {
+      tempArray = tempArray.filter((_, idx) => idx !== i);
+    }
+  }
+  connections = [...tempArray];
+}, 5000);
 
 self.onconnect = (event) => {
   const port = event.ports[0];
@@ -29,6 +42,11 @@ self.onconnect = (event) => {
       socket.send(message);
     }
   };
+};
+
+self.onclose = () => {
+  console.log("close..");
+  clearInterval(intervalId);
 };
 
 socket.onmessage = (event: MessageEvent<string>) => {
