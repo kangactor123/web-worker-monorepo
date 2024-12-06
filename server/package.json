@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "node server.js",
+    "dev:rest": "node index.js",
     "build": "echo server building..",
     "build:live": "node server.js"
   },
@@ -12,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.21.2",
     "ws": "^8.18.0"
   }
 }
